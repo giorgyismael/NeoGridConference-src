@@ -3,40 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.br.neogridconferencetest;
+package com.br.neogridconference;
 
+import com.br.neogridconference.Activity;
 import com.br.neogridconference.ReadActivityFile;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author giorgy
  */
 public class ReadActivityFileTest {
-    
+
+    protected 
+        String pathFileTest = "src/com/br/neogridconference/inputTest00.txt";
+        ReadActivityFile activityFileTest;
+
     public ReadActivityFileTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
+        
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
-        ReadActivityFile activityFileTest = new ReadActivityFile();
-        
+        this.activityFileTest = new ReadActivityFile();
+        this.activityFileTest.startReadActivityFile(this.pathFileTest);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -46,7 +53,11 @@ public class ReadActivityFileTest {
      */
     @Test
     public void testStartReadActivityFile() {
+        ReadActivityFile resultExpecteds = new ReadActivityFile();
+        resultExpecteds.addActivity("Writing Fast Tests Against Enterprise Rails", 60);
 
+        assertArrayEquals(resultExpecteds.getActivitiesList(),  activityFileTest.getActivitiesList());
+  
     }
 
     /**
@@ -128,5 +139,9 @@ public class ReadActivityFileTest {
     public void testPrintList() {
 
     }
-    
+
+    private void assertArrayEquals(List<Activity> activitiesList, List<Activity> activitiesList0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

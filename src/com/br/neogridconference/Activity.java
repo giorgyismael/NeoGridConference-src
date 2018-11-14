@@ -32,6 +32,6 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "ActivityObject{" + "name=" + name + ", time=" + time + '}';
+       return String.format("ActivityObject{name= %s, time= %d}", this.name, this.time);
     }
 }
