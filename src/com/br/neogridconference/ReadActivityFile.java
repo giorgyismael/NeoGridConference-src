@@ -147,6 +147,19 @@ public class ReadActivityFile {
     }
 
     /**
+     * Função busca o Activity com menor tempo na activitiesList
+     */
+    public Activity getTimeActivityWith30Min() {
+
+        for (Activity activity : activitiesList) {
+            if (activity.getTime() == 30) {
+                return activity;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Função imprime a activitiesList
      */
     public void printList() {

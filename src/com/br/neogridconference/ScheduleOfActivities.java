@@ -42,15 +42,19 @@ public class ScheduleOfActivities {
             }
 
             //Busca a Activity com maior tempo no array readActivityFile
-            Activity activity;
-            activity = readActivityFile.getLongerTimeActivity();
+            Activity activity;          
+            if (this.controlTime.getHours() <= 12){   
+                activity = readActivityFile.getLongerTimeActivity();
+            }else{
+                activity = readActivityFile.getShorterTimeActivity();
+            }
 
             //Verifica se a Activity de ser Adicionada antes das 12hs
             if (businessRulesTimeLouch(activity.getTime())) {
                 addActivity(activity);
                 addIncrementInControlTime(activity);
 
-                //Verifica se a Activity de ser Adicionada as 13hs
+                //Verifica se a Activity de ser Adicionada após as 13hs
             } else if (businessRulesactivityNetworks(activity.getTime())) {
                 addActivity(activity);
                 addIncrementInControlTime(activity);
@@ -60,6 +64,7 @@ public class ScheduleOfActivities {
             //remove a Activity do array readActivityFile
             readActivityFile.removeActivity(activity);
             
+            //Ao finalizar a lista, adiciona o evento para finalizar
               if(readActivityFile.getActivitiesList().size()<=0){
                 addNetworkingEventActivity();
             }
@@ -128,8 +133,8 @@ public class ScheduleOfActivities {
         long controlTimeMilissec = this.controlTime.getTime();
         long activityTimeMilissec = activity.getTime() * 60000;
 
-        long newcontrlTime = controlTimeMilissec + activityTimeMilissec;
-        this.controlTime.setTime(newcontrlTime);
+        long newcontrolTime = controlTimeMilissec + activityTimeMilissec;
+        this.controlTime.setTime(newcontrolTime);
     }
 
     /**
@@ -146,7 +151,7 @@ public class ScheduleOfActivities {
         controlTimeAux.setTime(timeAux);
 
         //Adicona activity no cronograma antes do almoço
-        if (controlTimeAux.getHours() <= 12 && controlTimeAux.getMinutes() <= 0) {
+        if (controlTimeAux.getHours() <= 12 ) {
                 response = true;
 
             //Adiciona activity horario de almoço        
@@ -176,9 +181,6 @@ public class ScheduleOfActivities {
         } else {
             addNetworkingEventActivity();
         }
-        
-
-
         return response;
     }
 
@@ -186,7 +188,7 @@ public class ScheduleOfActivities {
      * Formata a data para o padrão solicitado
      *
      * @param dateConvert corresponde a uma data no formato SimpleDateFormat
-     * @return A data no forma hh:mmaa conforme regra de
+     * @return reponse É uma data no formato hh:mmaa conforme regra de negocio
      */
     public String businessRulesConvertTime(Date dateConvert) {
         String response;
