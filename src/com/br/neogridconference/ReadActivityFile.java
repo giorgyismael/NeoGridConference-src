@@ -48,7 +48,7 @@ public class ReadActivityFile {
      */
     public void dividerNameEndTime(String string) {
         String name = "";
-        String name1 = "";
+        String nameAux = "";
         String time = "";
 
         for (char c : string.toCharArray()) {
@@ -59,16 +59,44 @@ public class ReadActivityFile {
             }
         }
 
-        name1 = name.replaceAll("min", "").trim();
+        nameAux = name.replaceAll("min", "");
+        nameAux = rtrim(nameAux);rtrim(nameAux);
         if (time == "") {
             time = "0";
         }
 
-        Activity activity = new Activity(name1, Integer.parseInt(time));
+        Activity activity = new Activity(nameAux, Integer.parseInt(time));
 
         activitiesList.add(activity);
 
     }
+    
+    /**
+     *Retira espaços em branco no lado esquedo
+     * @param s é a string a ser analizada
+     * @return Uma String sem espaços
+     */
+    public static String ltrim(String s) {
+        int i = 0;
+        while (i < s.length() && Character.isWhitespace(s.charAt(i))) {
+            i++;
+        }
+        return s.substring(i);
+    }
+
+      /**
+     *Retira espaços em branco no lado direito
+     * @param s é a string a ser analizada
+     * @return Uma String sem espaços
+     */
+    public static String rtrim(String s) {
+       int i = s.length()-1;
+       while (i > 0 && Character.isWhitespace(s.charAt(i))) {
+            i--;
+       }
+       return s.substring(0,i+1);
+    }
+    
 
     /**
      * Função adiciona um objeto do tipo Activity, oferecendo dois formatos
