@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.br.neogridconference;
+package com.br.neogridconferencetest;
 
 import java.util.Date;
 import org.junit.After;
